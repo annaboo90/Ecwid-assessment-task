@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Look At My Car</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://djqizrxa6f10j.cloudfront.net/ecwid-sdk/js/1.3.0/ecwid-app.js">
+    </script>
+
+</head>
+<body>
+
+    <div class="image_container">
+        <img src="images/2150998602.jpg" class="car_pic" alt="a 3D picture of a car with clickable areas" usemap="#image-map">
+    </div>
+
+    <div class="final_text"> <h1> Вы собрали машину!</h1> 
+    </div>
+
+    <map name="image-map">
+        <area shape="poly" coords="242,395,220,500,222,548,412,595,551,492,788,402,604,372,496,336" href="https://www.image-map.net/" storeItem_id="674968631" alt="hood">
+        <area shape="poly" coords="500,327,637,221,890,271,845,390,647,377" href="https://www.w3schools.com/html/html_images_imagemap.asp" storeItem_id="674966923" alt="windshield">
+        <area shape="poly" coords="733,517,670,596,704,713,792,687,813,566,782,517" href="https://www.image-map.net/" storeItem_id="674968632" alt="wheel">
+        <area shape="poly" coords="1025,205,1049,192,1278,248,1309,355" href="https://www.image-map.net/" storeItem_id="674968203" alt="trunk">
+        <area shape="poly" coords="180,552,166,603,272,679,405,710,586,710,492,621" href="https://www.image-map.net/" storeItem_id="674986030" alt="bumper">
+        <area shape="poly" coords="863,391,1058,328,1108,393,1079,534,857,638" href="https://www.image-map.net/" storeItem_id="674986029" alt="door">
+    </map>
+
+    <div class="ec-cart-widget" data-show-empty-cart="FALSE" data-fixed-position="TOP_RIGHT" data-fixed="true" ></div>
+    <div>
+    <script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?105699513&data_platform=code&data_date=2024-06-28" charset="utf-8"></script>
+    <script type="text/javascript">Ecwid.init();</script>
+    </div>
+
+    <script type="text/javascript"> 
+        const clickableAreas = document.querySelectorAll("area");
+        clickableAreas.forEach(area => {
+            area.addEventListener("click", event => {
+                event.preventDefault();//stop the default of redirecting to href in <area>
+
+                let productId = Number(area.getAttribute("storeItem_id"));//get the product id from the <area>
+
+                Ecwid.Cart.addProduct(productId);
+            })
+        
+        })
+        let carPic = document.getElementsByClassName("car_pic")//get the car image variable to hide in CSS
+        let finalText = document.getElementsByClassName("final_text")//get the text variable to show in CSS
+
+        Ecwid.OnCartChanged.add(function(cart){
+            if (cart.productsQuantity >= 5) {
+                carPic[0].style.display = "none";//hide car picture
+                finalText[0].style.display = "block";//show text
+            }
+        });
+    </script>
+</body>
+</html>
+
